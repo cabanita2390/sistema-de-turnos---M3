@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saludar = void 0;
-var saludar = function (name) {
-    console.log("Hola ".concat(name));
+const saludar = (name) => {
+    console.log(`Hola ${name}`);
 };
 exports.saludar = saludar;

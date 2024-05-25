@@ -1,27 +1,12 @@
-import { saludar } from "./modulo1";
 
-console.log('prueba');
+const express = require('express')
+require('dotenv').config()
 
+const server = express();
 
-console.log('prueba2');
+const PORT = process.env.PORT;
 
+server.listen(PORT, () => {
+    console.log(`Escuchando servidor en el puerto ${PORT}`);
+})
 
-const num1: number = 5;
-
-interface ISong {
-    title: string,
-    author: string
-}
-
-
-const mySong: ISong = {
-    title: 'Where is the love',
-    author: 'BYP'
-}
-
-
-console.log('mySong', mySong);
-
-saludar('Felipe')
-
-console.log('probando rama hw3');
