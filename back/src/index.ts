@@ -1,12 +1,7 @@
+import { PORT } from "./config/envs";
+import server from "./server";
 
-const express = require('express')
-require('dotenv').config()
 
-const server = express();
-
-const PORT = process.env.PORT;
-
-server.listen(PORT, () => {
-    console.log(`Escuchando servidor en el puerto ${PORT}`);
+server.listen(PORT, ()=> {
+    console.log(`Escuchando... puerto ${PORT}`);
 })
-
