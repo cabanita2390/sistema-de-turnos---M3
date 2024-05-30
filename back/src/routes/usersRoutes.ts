@@ -8,8 +8,8 @@ const userRouter: Router = Router();
 userRouter.get('/users', auth, getUsersController)
 userRouter.get('/users/:id', getUserController)
 
-userRouter.post('/users', createUserController)
-userRouter.post('/users', createUserController)
+userRouter.post('/users/register', createUserController)
+// userRouter.post('/users', createUserController)
 
 userRouter.delete('/users/:id', deleteUserController)
 
