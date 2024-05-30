@@ -9,7 +9,10 @@ userRouter.get('/users', auth, getUsersController)
 userRouter.get('/users/:id', getUserController)
 
 userRouter.post('/users/register', createUserController)
-// userRouter.post('/users', createUserController)
+
+//TODO 
+/* POST /users/login => Login del usuario a la aplicación.
+*/
 
 userRouter.delete('/users/:id', deleteUserController)
 

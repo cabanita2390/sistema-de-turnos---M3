@@ -1,9 +1,8 @@
 import ITurn from "../interfaces/ITurn";
-import IUser from "../interfaces/IUser";
 
 
 import { Request, Response } from "express"
-import { createTurnService, getTurnsService } from "../services/turnsServices";
+import { createTurnService, deleteTurnService, getTurnService, getTurnsService } from "../services/turnsServices";
 import TurnDTO from "../dto/TurnDTO";
 
 
@@ -13,38 +12,57 @@ export const getTurnsController = async (req: Request, res: Response) => {
     res.status(200).json(turns)
 } 
 
+export const getTurnController = async (req: Request, res: Response) => {
+
+    try {
+        const { idturn } = req.params;
+        const numericIdTurn = Number(idturn)
+
+        if (isNaN(numericIdTurn)) {
+            return res.status(400).json({ message: 'Invalid ID parameter' });
+        }
+
+        const turn: ITurn = await getTurnService(numericIdTurn);
+
+        if (!turn) {
+            return res.status(404).json({ message: 'Turn not found' });
+        }
+
+        res.status(200).json(turn);
+    } catch (error) {
+        
+        res.status(500).json({ message: `${error}` });
+    }
+} 
+
 
 export const createTurnController = async (req:Request , res:Response ) => {
     const { servicio, usuarioId } = req.body;
+    console.log('servicio',servicio);
+    console.log('usuarioId',usuarioId);
     const newTurn: ITurn = await createTurnService({ servicio, usuarioId })
     res.status(201).json(newTurn)
     
 } 
 
 
-// export const deleteUserController = async (req: Request, res: Response) => {
-//     const { id } = req.params; // Debe ser 'id' no 'stringId'
-    
-//     console.log('ID from params:', id); // Verificar el valor recibido
-//     console.log('Type before conversion:', typeof(id)); // Verificar el tipo de dato antes de la conversión
-    
-//     const numericId = Number(id);
-    
-//     console.log('Type after conversion:', typeof(numericId)); // Verificar el tipo de dato después de la conversión
-//     console.log('Converted ID:', numericId); // Verificar el valor convertido
-    
-//     // Verificar si la conversión fue exitosa
-//     if (isNaN(numericId)) {
-//         return res.status(400).json({ message: 'Invalid ID parameter' });
-//     }
+export const deleteTurnController = async (req: Request, res: Response) => {
+    const { idturn } = req.params; // Debe ser 'id' no 'stringId'
+        
+    const numericIdTurn = Number(idturn);
+        
+    // Verificar si la conversión fue exitosa
+    if (isNaN(numericIdTurn)) {
+        return res.status(400).json({ message: 'Invalid ID parameter' });
+    }
 
-//     try {
-//         const users: IUser[] = await deleteUserService(numericId);
-//         res.status(202).json(users);
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error deleting user', error });
-//     }
-//}
+    try {
+        const turns: ITurn[] = await deleteTurnService(numericIdTurn);
+        res.status(202).json(turns);
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting turn', error });
+    }
+}
 
 
 
