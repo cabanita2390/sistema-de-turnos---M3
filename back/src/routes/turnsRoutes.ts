@@ -3,16 +3,17 @@ import { Router } from "express";
 import auth from "../middlewares/auth";
 
 import { createTurnController, getTurnController, getTurnsController, deleteTurnController } from "../controllers/turnController";
+import authUser from "../middlewares/authUser";
 
 const turnRouter: Router = Router();
 
 //TODO
 
-turnRouter.get('/appointments', getTurnsController);
-turnRouter.get('/appointments/:idturn', getTurnController);
+turnRouter.get('/', getTurnsController);
+turnRouter.get('/:idturn', getTurnController);
 
 
-turnRouter.post('/appointments/schedule', createTurnController);
-turnRouter.delete('/appointments/:idturn', deleteTurnController);
+turnRouter.post('/schedule', authUser, createTurnController);
+turnRouter.delete('/:idturn', deleteTurnController);
 
 export default turnRouter;

@@ -1,23 +1,26 @@
-import UserDTO from "../dto/UserDTO";
+import ICreateUserDTO from "../dto/ICreateUserDTO";
+import UserDTO from "../dto/ICreateUserDTO";
 import IUser from "../interfaces/IUser"
+import ICredential from "../interfaces/Icredential";
+import { createNewCredential } from "./credentialServices";
 
-let users: IUser[] = [{
-        id: 10,
-        name: 'Felipe',
-        email: 'felipe@mail.com',
-        active: true
-    },
-    {
-        id: 20,
-        name: 'Nicolas',
-        email: 'nicolas@mail.com',
-        active: true
-    }
-]
-let id: number = users[0].id +1 ;
+let users: IUser[] = []
+
+/*
+    id: 10,
+    name: 'Felipe',
+    email: 'felipe@mail.com',
+    birthdate: '23 08 1990',
+    nDni: 105845632,
+    credentialsId: 21,
+ */
+
+
+let id: number = 10 ;
 
 export const getUsersService = async (): Promise<IUser[]> => {
-    return users;
+    const allUsers: IUser[] = await users // Acá debería ir a consultar la BD
+    return allUsers;
 }
 
 export const getUserService = async (id: number): Promise<IUser> => {
@@ -32,23 +35,40 @@ export const getUserService = async (id: number): Promise<IUser> => {
     return user;
 }
 
-export const createUserService = async (userData: UserDTO): Promise<IUser>  => {
+export const createUserService = async (createUserDTO: ICreateUserDTO): Promise<IUser>  => {
+
+    const newCredential: ICredential = await createNewCredential({
+        username: createUserDTO.username,
+        password: createUserDTO.password
+    });
 
     const newUser: IUser = {
-        id: id,
-        name: userData.name,
-        email: userData.email,
-        active: userData.active
+        id: id++,
+        name: createUserDTO.name,
+        email: createUserDTO.email,
+        birthdate: createUserDTO.birthdate,
+        nDni: createUserDTO.nDni,
+        credentialsId: newCredential.idCredential
     }
     
     users.push(newUser)
-    id++;
-    
+       
     return newUser
 
     // Recibir los datos del usuario, desde el ReportBody(?)
     // Crear un nuevo usuario
     // incluir el nuevo usuario en el arreglo
+}
+
+
+
+export const findUserByCredentialId = async (credentialId: number) => {
+    
+    const user: IUser | undefined = await users.find(user => user.credentialsId === credentialId)
+    
+    //Verificar si existe
+    
+    return user
 }
 
  

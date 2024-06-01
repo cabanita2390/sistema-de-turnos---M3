@@ -37,10 +37,9 @@ export const getTurnController = async (req: Request, res: Response) => {
 
 
 export const createTurnController = async (req:Request , res:Response ) => {
-    const { servicio, usuarioId } = req.body;
-    console.log('servicio',servicio);
-    console.log('usuarioId',usuarioId);
-    const newTurn: ITurn = await createTurnService({ servicio, usuarioId })
+    const { servicio, usuarioId, date, time } = req.body;
+    
+    const newTurn: ITurn = await createTurnService({ servicio, usuarioId, date, time })
     res.status(201).json(newTurn)
     
 } 

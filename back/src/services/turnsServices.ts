@@ -1,18 +1,22 @@
 import TurnDTO from "../dto/TurnDTO";
-import ITurn from "../interfaces/ITurn";
+import ITurn, { AppointmentStatus } from "../interfaces/ITurn";
 
 let turns: ITurn[] = [
     {
         idTurns: 10,
         servicio: 'Atención',
-        fechaCreacion: 'hoy',
-        fechaEliminacion: "",
+        date: '31 05 2024',
+        time: "8 am",
+        usuarioId: 10,
+        estadoActive: AppointmentStatus.ACTIVE
     },
     {
         idTurns: 11,
-        servicio: 'Atención',
-        fechaCreacion: 'ayer',
-        fechaEliminacion: "",
+        servicio: 'Caja',
+        date: '1 06 2024',
+        time: "10 am",
+        usuarioId: 11,
+        estadoActive: AppointmentStatus.ACTIVE
     }
 ]
 
@@ -37,12 +41,15 @@ export const getTurnService = async (numericIdTurn: number): Promise<ITurn> => {
 
 export const createTurnService = async ( turnData: TurnDTO ) => {
 
+    console.log('Desde turnServices, turnData', turnData); 
+
     const newTurn: ITurn = {
         idTurns: idTurns,
         servicio: turnData.servicio,
-        fechaCreacion: 'hoy',
-        fechaEliminacion: '',
-        usuarioId: turnData.usuarioId
+        date: turnData.date,
+        time: turnData.time,
+        usuarioId: turnData.usuarioId,
+        estadoActive: AppointmentStatus.ACTIVE
     }
 
     turns.push(newTurn);

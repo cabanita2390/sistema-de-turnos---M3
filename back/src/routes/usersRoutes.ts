@@ -1,19 +1,20 @@
 import { Router } from "express";
 
 import auth from "../middlewares/auth";
-import { createUserController, deleteUserController, getUserController, getUsersController } from "../controllers/usersController";
+import { registerUserController, deleteUserController, getUserController, getUsersController, loginUserController } from "../controllers/usersController";
 
 const userRouter: Router = Router();
 
-userRouter.get('/users', auth, getUsersController)
-userRouter.get('/users/:id', getUserController)
+userRouter.get('/', auth, getUsersController)
+userRouter.get('/:id', getUserController)
 
-userRouter.post('/users/register', createUserController)
+userRouter.post('/register', registerUserController)
+userRouter.post('/login', loginUserController)
 
 //TODO 
 /* POST /users/login => Login del usuario a la aplicación.
 */
 
-userRouter.delete('/users/:id', deleteUserController)
+userRouter.delete('/:id', deleteUserController)
 
 export default userRouter;

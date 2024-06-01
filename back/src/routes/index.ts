@@ -7,8 +7,8 @@ import turnRouter from "./turnsRoutes";
 const router: Router = Router();
 
 
-router.use(userRouter)
-router.use(turnRouter)
+router.use("/users", userRouter)
+router.use("/appointments", turnRouter)
 
 
 
