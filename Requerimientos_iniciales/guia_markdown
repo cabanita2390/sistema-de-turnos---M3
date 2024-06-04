@@ -1,0 +1,73 @@
+# <div align="center">Guía Rápida de Markdown</div><br>
+
+# <span style="color: #2D97F5;">Encabezados.</span>
+
+# Encabezado de nivel 1
+## Encabezado de nivel 2
+### Encabezado de nivel 3
+
+
+## <span style="color: #2D97F5;">Énfasis
+
+*Texto en cursiva* <br>
+**Texto en negrita** <br>
+***Texto en negrita y cursiva***
+
+
+## <span style="color: #2D97F5;">Listas
+
+**Listas no ordenadas:**
+
+- Elemento 1
+- Elemento 2
+  - Sub-elemento
+
+
+**Listas ordenadas:**
+
+1. Elemento 1
+2. Elemento 2
+   1. Sub-elemento
+
+---
+## Enlaces
+```markdown
+[Texto del enlace](https://www.ejemplo.com)
+```
+
+## Imágenes
+```markdown
+![Texto alternativo](https://www.ejemplo.com/imagen.jpg)
+```
+
+## Citas
+```markdown
+> Esta es una cita.
+```
+
+## Código
+
+**Código en línea:**
+```markdown
+`código en línea`
+```
+
+**Bloques de código:**
+```markdown
+\```
+bloque de código
+\```
+```
+
+## Tablas
+
+| Encabezado 1 | Encabezado 2 |
+|--------------|--------------|
+| Fila 1       | Valor 1      |
+| Fila 2       | Valor 2      |
+
+
+## Divisores
+```markdown
+---
+```
