@@ -12,7 +12,7 @@ import { createNewCredential } from "./credentialServices";
 export const getUsersService = async (): Promise<User[]> => {
 
     const allUsers: User[] = await userModel.find({
-        // relations: {appointments: true}
+        relations: {appointments: true}
     })
 
     return allUsers;
@@ -22,12 +22,12 @@ export const getUserService = async (id: number): Promise<User> => {
     
     const user: User | null = await userModel.findOne({
         where: { id: id },
-        // relations: ["appointments"]
+        relations: ["appointments"]
     })
 
     if (!user) {
         
-        throw new Error('User not found');
+        throw new Error('Usuario no encontrado');
     }
     
     return user;
@@ -86,4 +86,4 @@ export const findUserByCredentialId = async (credentialId: number) => {
 
 
 
-//!Vamos a empezar prueba- Video minuto 58:55 04/06
+

@@ -30,11 +30,6 @@ class Appointment {
     servicio!: string;
    
     //TODO relacion
-    // //    Appointment  M:1 User
-    // @ManyToOne(() => User,
-    //   (user) => user.appointments
-    // )
-    // user!: User;
     @ManyToOne(() => User, user => user.appointments) // Relación muchos a uno
     user!: User;
 }

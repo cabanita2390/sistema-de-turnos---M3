@@ -25,9 +25,7 @@ class User {
     @JoinColumn({ name: "credentialId" })
     credential!: Credential;
 
-    @OneToMany(() => Appointment,
-        (appointment) => appointment.userId
-    )
+    @OneToMany(() => Appointment, appointment => appointment.user) // Cambiado a `appointment.user`
     appointments!: Appointment[];
 }
 

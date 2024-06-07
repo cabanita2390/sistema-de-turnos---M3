@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import auth from "../middlewares/auth";
 
-import { createTurnController, getTurnController, getTurnsController, deleteTurnController } from "../controllers/turnController";
+import { createTurnController, getTurnController, getTurnsController, cancelTurnController } from "../controllers/turnController";
 import authUser from "../middlewares/authUser";
 
 const turnRouter: Router = Router();
@@ -14,6 +14,6 @@ turnRouter.get('/:idappointment', getTurnController);
 
 
 turnRouter.post('/schedule', createTurnController);
-turnRouter.delete('/:idappointment', deleteTurnController);
+turnRouter.post('/:idappointment', cancelTurnController);
 
 export default turnRouter;

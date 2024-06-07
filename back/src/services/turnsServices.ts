@@ -39,7 +39,6 @@ export const getTurnService = async (numericidAppointment: number): Promise<Appo
     })
 
     if (!appointment) {
-        
         throw new Error('Turn not found');
     }
     
@@ -66,14 +65,18 @@ export const createTurnService = async (appointmentData: TurnDTO): Promise<Appoi
     }
 };
 
-export const deleteTurnService = async (numericIdTurn: number): Promise<ITurn[]> => {
-    const turnIndex = turns.findIndex(turn => turn.idTurns === numericIdTurn);
+export const cancelTurnService = async (numericIdTurn: number): Promise<ITurn[]> => {
 
-    if (turnIndex === -1) {
+    console.log(numericIdTurn);
+
+    const appointment = await appointmentModel.findOne({
+        where: { idAppointment: numericIdTurn }
+    })
+
+    if (!appointment) {
         throw new Error('Turn not found');
     }
 
-    turns.splice(turnIndex, 1);
     return turns;
 }
 

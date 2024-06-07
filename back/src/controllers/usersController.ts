@@ -19,6 +19,7 @@ export const getUsersController = async (req: Request, res: Response) => {
                 
     } catch (error) {
         res.status(400).json(error)
+
     }
 } 
 
@@ -40,7 +41,7 @@ export const getUserController = async (req: Request, res: Response) => {
 
         res.status(200).json(user);
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving user', error });
+        res.status(404).json({ message: 'Usuario no encontrado', error });
     }
 }
 
@@ -54,7 +55,7 @@ export const registerUserController = async (req:Request<{}, {}, ICreateUserDTO>
         res.status(201).json(newUser)
     } catch (error: any) {
         console.error('Error creating user:', error);
-        res.status(500).json({ message: 'Usuario inexistente', error: error.message });
+        res.status(400).json({ message: 'Datos incorrectos', error: error.message });
     }
     
 }
@@ -76,7 +77,7 @@ export const loginUserController = async (req:Request , res:Response ) => {  //<
 
     } catch (error) {
         console.error('Error during login:', error);
-        res.status(500).json({ login: false, error: 'Contraseña incorrecta' });
+        res.status(400).json({ login: false, error: 'Datos incorrectos' });
     }
 }
 
