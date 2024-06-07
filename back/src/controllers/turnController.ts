@@ -72,10 +72,10 @@ export const cancelTurnController = async (req: Request, res: Response) => {
     }
 
     try {
-        const turns: ITurn[] = await cancelTurnService(numericIdTurn);
-        res.status(202).json(turns);
+        const succesCancel = await cancelTurnService(numericIdTurn);
+        res.status(202).json({succesCancel: true, message: `Turno X cancelado`});
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting turn', error });
+        res.status(404).json({ message: `Error cancelando el turno. ${error}`  });
     }
 }
 

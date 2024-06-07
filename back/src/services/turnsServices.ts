@@ -65,19 +65,25 @@ export const createTurnService = async (appointmentData: TurnDTO): Promise<Appoi
     }
 };
 
-export const cancelTurnService = async (numericIdTurn: number): Promise<ITurn[]> => {
-
-    console.log(numericIdTurn);
+export const cancelTurnService = async (numericIdTurn: number): Promise<boolean> => {
 
     const appointment = await appointmentModel.findOne({
         where: { idAppointment: numericIdTurn }
     })
 
     if (!appointment) {
-        throw new Error('Turn not found');
+        throw new Error('Turno no encontrado');
     }
 
-    return turns;
+    if (appointment.statusActive === false) {
+        throw new Error('Turno cancelado');
+    }
+
+    appointment.statusActive = false;
+    
+    await appointmentModel.save(appointment)
+
+    return true;
 }
 
 

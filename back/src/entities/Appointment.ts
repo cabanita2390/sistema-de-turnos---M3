@@ -22,9 +22,9 @@ class Appointment {
     time!: string;
 
     @Column({
-      default: "active",
+      default: true,
     })
-    status!: string;
+    statusActive!: boolean;
     
     @Column()
     servicio!: string;

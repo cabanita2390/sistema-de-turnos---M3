@@ -14,6 +14,6 @@ turnRouter.get('/:idappointment', getTurnController);
 
 
 turnRouter.post('/schedule', createTurnController);
-turnRouter.post('/:idappointment', cancelTurnController);
+turnRouter.put('/cancel/:idappointment', cancelTurnController);
 
 export default turnRouter;
