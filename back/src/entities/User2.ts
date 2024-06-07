@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne,  PrimaryGeneratedColumn } from "typeorm";
 import Credential from "./Credential";
 import Appointment from "./Appointment";
 
 @Entity({
-     name: "users" 
-    })
+    name: "users"
+})
 class User {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -21,14 +21,18 @@ class User {
     @Column()
     nDni!: number;
 
-    @OneToOne(() => Credential) // eager: true para cargar la relación automáticamente
-    @JoinColumn({ name: "credentialId" })
+    @OneToOne(() => Credential)
+    @JoinColumn({name: "credentialId"})
     credential!: Credential;
+
+    // User         1:M Appointment
 
     @OneToMany(() => Appointment,
         (appointment) => appointment.userId
     )
     appointments!: Appointment[];
+
+
 }
 
-export default User;
+export default User

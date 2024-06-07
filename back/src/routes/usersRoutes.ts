@@ -1,11 +1,11 @@
 import { Router } from "express";
 
 import auth from "../middlewares/auth";
-import { registerUserController, deleteUserController, getUserController, getUsersController, loginUserController } from "../controllers/usersController";
+import { registerUserController, getUserController, getUsersController, loginUserController } from "../controllers/usersController";
 
 const userRouter: Router = Router();
 
-userRouter.get('/', auth, getUsersController)
+userRouter.get('/', getUsersController)
 userRouter.get('/:id', getUserController)
 
 userRouter.post('/register', registerUserController)
@@ -15,6 +15,6 @@ userRouter.post('/login', loginUserController)
 /* POST /users/login => Login del usuario a la aplicación.
 */
 
-userRouter.delete('/:id', deleteUserController)
+// userRouter.delete('/:id', deleteUserController)
 
 export default userRouter;

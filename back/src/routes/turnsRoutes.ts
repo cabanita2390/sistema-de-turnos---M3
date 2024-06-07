@@ -10,10 +10,10 @@ const turnRouter: Router = Router();
 //TODO
 
 turnRouter.get('/', getTurnsController);
-turnRouter.get('/:idturn', getTurnController);
+turnRouter.get('/:idappointment', getTurnController);
 
 
-turnRouter.post('/schedule', authUser, createTurnController);
-turnRouter.delete('/:idturn', deleteTurnController);
+turnRouter.post('/schedule', createTurnController);
+turnRouter.delete('/:idappointment', deleteTurnController);
 
 export default turnRouter;

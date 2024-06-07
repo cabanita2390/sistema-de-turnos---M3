@@ -1,14 +1,6 @@
-/*
-   Relaciones
- 
-   User         1:1 Credential
-   Credential   1:1 User
 
-   User         1:M Appointment
-   Appointment  M:1 User
- */
 
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
 
 // import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
@@ -18,18 +10,16 @@ import User from "./User";
 })
 class Appointment {
     @PrimaryGeneratedColumn()
-    idTurns!: number;
-
-    //usuarioId
+    idAppointment!: number;
+    
+    @Column()
+    userId!: number;
 
     @Column()
     date!: Date;
 
     @Column()
     time!: string;
-
-    @Column()
-    userId!: string;
 
     @Column({
       default: "active",
@@ -40,12 +30,13 @@ class Appointment {
     servicio!: string;
    
     //TODO relacion
-    //    Appointment  M:1 User
-
-    //!DECLARAMOS EN TABLA PRINCIPAL: User
-
-
-    //    User         1:M Appointment
+    // //    Appointment  M:1 User
+    // @ManyToOne(() => User,
+    //   (user) => user.appointments
+    // )
+    // user!: User;
+    @ManyToOne(() => User, user => user.appointments) // Relación muchos a uno
+    user!: User;
 }
    
 export default Appointment

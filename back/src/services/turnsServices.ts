@@ -1,5 +1,7 @@
 import TurnDTO from "../dto/TurnDTO";
+import Appointment from "../entities/Appointment";
 import ITurn, { AppointmentStatus } from "../interfaces/ITurn";
+import { appointmentModel } from "../repositories";
 
 let turns: ITurn[] = [
     {
@@ -22,42 +24,47 @@ let turns: ITurn[] = [
 
 let idTurns: number = turns[1].idTurns +1 ;
 
-export const getTurnsService = async (): Promise<ITurn[]> => {
-    return turns;
+export const getTurnsService = async (): Promise<Appointment[]> => {
+
+    const allAppointments: Appointment[] = await appointmentModel.find({
+        //Incluir relaciones
+    })
+    return allAppointments;
 }
 
 
-export const getTurnService = async (numericIdTurn: number): Promise<ITurn> => {
-    const turn = turns.find(turno => turno.idTurns === numericIdTurn);
+export const getTurnService = async (numericidAppointment: number): Promise<Appointment> => {
+    const appointment: Appointment | null = await appointmentModel.findOne({
+        where: { idAppointment: numericidAppointment }
+    })
 
-    if (!turn) {
+    if (!appointment) {
         
         throw new Error('Turn not found');
     }
     
-    return turn;
+    return appointment;
 }
 
 
-export const createTurnService = async ( turnData: TurnDTO ) => {
+export const createTurnService = async (appointmentData: TurnDTO): Promise<Appointment> => {
+    try {
+        const newDataAppointment = {
+            userId: appointmentData.usuarioId,
+            date: appointmentData.date,
+            time: appointmentData.time,
+            servicio: appointmentData.servicio
+        };
 
-    console.log('Desde turnServices, turnData', turnData); 
+        const newAppointment = appointmentModel.create(newDataAppointment);
+        await appointmentModel.save(newAppointment);
 
-    const newTurn: ITurn = {
-        idTurns: idTurns,
-        servicio: turnData.servicio,
-        date: turnData.date,
-        time: turnData.time,
-        usuarioId: turnData.usuarioId,
-        estadoActive: AppointmentStatus.ACTIVE
+        return newAppointment;
+    } catch (error) {
+        console.error('Error creating appointment:', error);
+        throw new Error('Failed to create appointment');
     }
-
-    turns.push(newTurn);
-    
-    idTurns++;
-
-    return newTurn
-}
+};
 
 export const deleteTurnService = async (numericIdTurn: number): Promise<ITurn[]> => {
     const turnIndex = turns.findIndex(turn => turn.idTurns === numericIdTurn);

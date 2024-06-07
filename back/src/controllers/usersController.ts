@@ -1,17 +1,22 @@
 import { Request, Response } from "express"
 import IUser from "../interfaces/IUser";
-import { createUserService, deleteUserService, findUserByCredentialId, getUserService, getUsersService } from "../services/userServices";
+import { createUserService, findUserByCredentialId, getUserService, getUsersService } from "../services/userServices";
 import ICredential from "../interfaces/Icredential";
 import { validateCredential } from "../services/credentialServices";
 import createCredentialDTO from "../dto/IcreateCredentialDTO";
 import ICreateUserDTO from "../dto/ICreateUserDTO";
+import User from "../entities/User";
+import Credential from "../entities/Credential";
 
 
 export const getUsersController = async (req: Request, res: Response) => {
     try {
-        const users: IUser[] = await getUsersService();
-        res.status(200).json(users)
         
+        const users: User[] = await getUsersService();
+        
+        res.status(200).json(users)
+
+                
     } catch (error) {
         res.status(400).json(error)
     }
@@ -26,7 +31,8 @@ export const getUserController = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Invalid ID parameter' });
         }
 
-        const user: IUser | undefined = await getUserService(numericId);
+        const user: User | null = await getUserService(numericId);
+        
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -43,7 +49,8 @@ export const registerUserController = async (req:Request<{}, {}, ICreateUserDTO>
     try {
         const { name, email, birthdate, nDni, username, password } = req.body; 
         
-        const newUser: IUser = await createUserService({ name, email, birthdate, nDni, username, password})
+        const newUser: User = await createUserService({ name, email, birthdate, nDni, username, password})
+        
         res.status(201).json(newUser)
     } catch (error: any) {
         console.error('Error creating user:', error);
@@ -53,18 +60,18 @@ export const registerUserController = async (req:Request<{}, {}, ICreateUserDTO>
 }
 
 
-export const loginUserController = async (req:Request , res:Response ) => {  //<Params> <Query> <Body>
+export const loginUserController = async (req:Request , res:Response ) => {  //<Params> <Query> <Body
     //Icredential
     try {
         const { username, password } = req.body;
-        const credential: ICredential = await validateCredential({username, password});
+        const credential: Credential = await validateCredential({username, password});
         
-        
-        const user = await findUserByCredentialId(credential.idCredential);
+        const user: User = await findUserByCredentialId(credential.idCredential);
         
         if (!user) {
             return res.status(404).json({ login: false, message: 'User not found' });
         }
+        
         res.status(200).json({login: true, user})
 
     } catch (error) {
@@ -74,23 +81,23 @@ export const loginUserController = async (req:Request , res:Response ) => {  //<
 }
 
 
-export const deleteUserController = async (req: Request, res: Response) => {
-    const { id } = req.params; // Debe ser 'id' no 'stringId'
+// export const deleteUserController = async (req: Request, res: Response) => {
+//     const { id } = req.params; // Debe ser 'id' no 'stringId'
         
-    const numericId = Number(id);
+//     const numericId = Number(id);
         
-    // Verificar si la conversión fue exitosa
-    if (isNaN(numericId)) {
-        return res.status(400).json({ message: 'Invalid ID parameter' });
-    }
+//     // Verificar si la conversión fue exitosa
+//     if (isNaN(numericId)) {
+//         return res.status(400).json({ message: 'Invalid ID parameter' });
+//     }
 
-    try {
-        const users: IUser[] = await deleteUserService(numericId);
-        res.status(202).json(users);
-    } catch (error) {
-        res.status(500).json({ message: ` ${error} `});
-    }
-}
+//     try {
+//         const users: IUser[] = await deleteUserService(numericId);
+//         res.status(202).json(users);
+//     } catch (error) {
+//         res.status(500).json({ message: ` ${error} `});
+//     }
+// }
 
 
 
