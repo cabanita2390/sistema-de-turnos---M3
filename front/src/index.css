@@ -352,3 +352,38 @@ template {
 [hidden] {
   display: none;
 }
+
+/* customScrollbar.css */
+
+/* Estilos para navegadores basados en WebKit */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track { /*Detras del riel*/
+  background: #333333;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb { /*Color de la barra sin hover*/
+  background: #262626;
+  border-radius: 8px;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb:hover { /*Color de la barra con hover*/
+  background: #3b3b3b;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #555;
+  border-radius: 8px;
+  border: none;
+}
+
+/* Estilos para Firefox */
+body {
+  scrollbar-color: #888 #f1f1f1;
+  scrollbar-width: thin;
+}

@@ -1,11 +1,15 @@
 
-import Home from './views/home/Home'
+import Navbar from './components/navbar/navbar'
+// import Home from './views/home/Home'
+import MisTurnos from './views/mis-turnos/MisTurnos'
 
 function App() {
 
   return (
     <>
-      <Home />
+      <Navbar/>
+      {/* <Home /> */}
+      <MisTurnos />
     </>
   )
   
