@@ -1,0 +1,47 @@
+.navbarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #333333;
+    color: antiquewhite;
+    padding-bottom: 1em;
+    align-items: center;
+}
+
+.logoSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin: 10px;
+}
+
+.logoSection img {
+    max-height: 100%;
+}
+
+.linksSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.linksSection span:hover {
+    cursor: pointer;
+    text-shadow: 0 0 5px #ffffff; /* Añade un efecto de sombra de texto */
+}
+
+.avatarSection {
+    margin: 20px;
+}
+
+.avatarSection img {
+    border-radius: 50%;
+    max-width: 100%;
+    width: 48px;
+    height: auto;
+}
+
+
+

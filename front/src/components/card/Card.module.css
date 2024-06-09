@@ -1,0 +1,17 @@
+.cardContainer {
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    font-size: 1em;
+    text-align: justify;
+    background-color: darkcyan;
+    border-radius: 5px;
+    margin: 15px;
+    p {
+        margin-left: 16px;
+    }
+}
+.cardContainer img {
+    height: 120px;
+    border-radius: 8px;
+}
