@@ -51,8 +51,9 @@ export const registerUserController = async (req:Request<{}, {}, ICreateUserDTO>
         const { name, email, birthdate, nDni, username, password } = req.body; 
         
         const newUser: User = await createUserService({ name, email, birthdate, nDni, username, password})
+        console.log(newUser);
         
-        res.status(201).json(newUser)
+        res.status(201).json('Usuario creado exitosamente')
     } catch (error: any) {
         console.error('Error creating user:', error);
         res.status(400).json({ message: 'Datos incorrectos', error: error.message });

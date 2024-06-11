@@ -9,7 +9,7 @@
     border-radius: 5px;
     margin: 15px;
     p {
-        margin-left: 16px;
+        /* margin-left: 16px; */
         font-size: 18px;
     }
 }
@@ -19,7 +19,35 @@
 }
 
 .turnInfoContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     width: 80%;
-    justify-content: space-between;
+    p {
+        span {
+            font-weight: bold;
+        }
+    }
+}
+    .itemContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .turnInfoContainer p {
+        flex: 0 0 25%;
+    }
+    .turnInfoContainer .itemInfoContainer {
+        flex: 1;
+        margin: 0 10px;
+    }
+
+.active {
+    color: rgb(0, 105, 0);
+    &:hover {
+        color: rgb(4, 64, 17);
+        cursor: pointer;
+    }
+}
+.cancelled {
+    color: rgb(136, 10, 10);
 }
