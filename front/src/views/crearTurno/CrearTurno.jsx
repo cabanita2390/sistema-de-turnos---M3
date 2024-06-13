@@ -52,7 +52,7 @@ export default function CrearTurno(props) {
 
     const isWeekend = (date) => {
         const day = new Date(date).getDay();
-        return day === 0 || day === 6; // 0:domingo 6:sábado
+        return day === 5 || day === 6; // 0:domingo 6:sábado
     };
 
     //HANDLERS
