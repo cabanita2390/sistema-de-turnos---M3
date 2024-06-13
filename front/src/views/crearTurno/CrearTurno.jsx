@@ -52,7 +52,26 @@ export default function CrearTurno(props) {
 
     const isWeekend = (date) => {
         const day = new Date(date).getDay();
-        return day === 5 || day === 6; // 0:domingo 6:sábado
+        return day === 5 || day === 6; // 6:domingo 5:sábado
+    };
+
+    // Obtiene la fecha actual en formato yyyy-mm-dd
+    const getCurrentDate = () => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
+    };
+
+    // Obtiene la fecha máxima permitida en formato yyyy-mm-dd
+    const getMaxDate = () => {
+        const today = new Date();
+        const maxDate = new Date(today.setDate(today.getDate() + 15));
+        const yyyy = maxDate.getFullYear();
+        const mm = String(maxDate.getMonth() + 1).padStart(2, "0");
+        const dd = String(maxDate.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
     };
 
     //HANDLERS
@@ -92,7 +111,15 @@ export default function CrearTurno(props) {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="date">Fecha: </label>
-                    <input type="date" id="date" name="date" value={appointment.date} onChange={handleChange} />
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={appointment.date}
+                        min={getCurrentDate()} // Añadido min para evitar fechas pasadas
+                        max={getMaxDate()} // Añadido max para limitar la fecha a 15 días adelante
+                        onChange={handleChange}
+                    />
                     {errors.date && <span>{errors.date}</span>}
                 </div>
 
