@@ -2,9 +2,13 @@ import logo from "../../assets/YT/sin-bg/logo.png"
 import avatar from "../../assets/YT/sin-bg/avatar.jpg"
 import styles from "./navbar.module.css"
 import { NavLink } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 
 export default function Navbar() {
+
+    const loggeado = useSelector(state => state.actualUser.userData)
+
     return (
         <nav className={styles.navbarContainer}>
             <div className={styles.logoSection}>
@@ -20,9 +24,10 @@ export default function Navbar() {
                     <span>Acerca</span>
                 </NavLink>
 
+                { loggeado.login ? 
                 <NavLink to={"/appointments"} className={({ isActive}) => ( isActive ? styles.linkActive : null)}>
                     <span>Turnos</span>
-                </NavLink>
+                </NavLink> : null}
                 
                 <NavLink to={"/contact"} className={({ isActive}) => ( isActive ? styles.linkActive : null)}>
                     <span>Contacto</span>
@@ -30,6 +35,7 @@ export default function Navbar() {
 
             </div>
             <div className={styles.avatarSection}>
+                <p>{loggeado.user.name}</p>
                 <img src={avatar} alt="logo" />
             </div>
         </nav>

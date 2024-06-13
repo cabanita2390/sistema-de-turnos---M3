@@ -4,9 +4,13 @@ import Button from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import stylesButton from "../../components/button/Button.module.css"
 import styles from "../../views/register/Register.module.css"
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/userSlice";
+import store from "../../redux/store";
 
 const emailRegExp = /\S+@\S+\.\S+/;
 const POST_LOGIN_USER_URL = "http://localhost:3000/users/login";
+
 
 function Login() {
     //*ESTADO INICIAL
@@ -15,10 +19,11 @@ function Login() {
         password: "",
     };
 
-    //*ESTADOS
+    //*HOOKS
     const [user, setUser] = useState(initialState);
     const [errors, setErrors] = useState(initialState);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     //*VALIDACIONES
     const validateUser = ({ username, password }) => {
@@ -56,8 +61,10 @@ function Login() {
 
         try {
             const response = await axios.post(POST_LOGIN_USER_URL, userData);
+            dispatch(setUserData(response.data))
+
             alert('Usuario loggeado exitosamente')
-            setUser(initialState);
+            // setUser(initialState);
             navigate("/appointments");
         } catch (error) {
             alert(error.response.data.error);

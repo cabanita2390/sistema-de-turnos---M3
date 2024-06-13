@@ -3,14 +3,19 @@
 import styles from "./Turno.module.css"
 import turn_image from "../../assets/oyher/turn_image.jpg"
 
-export default function Turno({idAppointment, userId, date, time, servicio, statusActive}) {
+export default function Turno({idAppointment, userId, date, time, servicio, statusActive, handleAppointmentCancel}) {
 
     //Formateamos fecha
     const date1 = new Date(date)
     const formatDate = `${date1.getDate()}/${date1.getMonth() + 1}/${date1.getFullYear()}`
     
     const handleClick = () =>{
-        alert(`Desea cancelar el turno del día ${formatDate} a las ${time}`)
+
+        if (window.confirm(`Desea cancelar el turno del día ${formatDate} a las ${time}`)) {
+            
+            handleAppointmentCancel(idAppointment);
+        }
+
     }
 
     
