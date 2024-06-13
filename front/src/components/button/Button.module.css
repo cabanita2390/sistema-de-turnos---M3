@@ -1,0 +1,42 @@
+/* Button.css */
+
+.button {
+    background-color: #003C43; /* Color de fondo inicial */
+    color: #ffffff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    font-weight: bold; /* Fuente en negrita */
+    cursor: pointer; /* Cambiar cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
+
+.button:hover {
+    background-color: #135D66; /* Color de fondo al pasar el ratón */
+    transform: translateY(-2px); /* Movimiento sutil al pasar el ratón */
+}
+
+.button:active {
+    background-color: #135D66; /* Color de fondo al hacer clic */
+    transform: translateY(0); /* Sin movimiento al hacer clic */
+}
+
+.button:focus {
+    outline: none; /* Eliminar contorno predeterminado */
+    box-shadow: 0 0 0 3px rgba(0, 60, 67, 0.5); /* Sombra de enfoque */
+}
+
+/* Centro del contenedor del botón */
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:disabled {
+    background-color: #cccccc; /* Cambiar color de fondo cuando está deshabilitado */
+    color: #999999; /* Cambiar color del texto cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar cursor cuando está deshabilitado */
+}

@@ -43,5 +43,21 @@
     height: auto;
 }
 
+.linkActive {
+    position: relative;
+    color: inherit; /* Hereda el color del link predeterminado */
+    text-decoration: none; /* Elimina cualquier subrayado predeterminado */
+}
+
+.linkActive::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -4px; /* Ajusta según sea necesario para la separación de la línea */
+    width: 100%;
+    height: 2px; /* Ajusta el grosor de la línea */
+    background-color: currentColor; /* Usa el color actual del link */
+}
+
 
 

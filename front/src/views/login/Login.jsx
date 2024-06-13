@@ -1,5 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Button from "../../components/button/Button";
+import { useNavigate } from "react-router-dom";
+import stylesButton from "../../components/button/Button.module.css"
+import styles from "../../views/register/Register.module.css"
 
 const emailRegExp = /\S+@\S+\.\S+/;
 const POST_LOGIN_USER_URL = "http://localhost:3000/users/login";
@@ -14,6 +18,7 @@ function Login() {
     //*ESTADOS
     const [user, setUser] = useState(initialState);
     const [errors, setErrors] = useState(initialState);
+    const navigate = useNavigate();
 
     //*VALIDACIONES
     const validateUser = ({ username, password }) => {
@@ -40,7 +45,7 @@ function Login() {
         );
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         //BBDD
         const userData = {
@@ -49,14 +54,16 @@ function Login() {
         };
         //Lo pusheamos
 
-        axios
-            .post(POST_LOGIN_USER_URL, userData)
-            .then(({ data }) => {
-                alert("Usuario loggeado satisfactoriamente!");
-                setUser(initialState);
-            })
-            .catch((error) => alert(error.response.data.error));
-    };
+        try {
+            const response = await axios.post(POST_LOGIN_USER_URL, userData);
+            alert('Usuario loggeado exitosamente')
+            setUser(initialState);
+            navigate("/appointments");
+        } catch (error) {
+            alert(error.response.data.error);
+        
+        }
+    }
 
     const handleBorrar = (event) => {
         event.preventDefault();
@@ -89,10 +96,13 @@ function Login() {
                         {errors[name] && <span style={{ color: "red" }}>{errors[name]}</span>}
                     </div>
                 ))}
-                <button type="submit" disabled={Object.keys(user).some((e) => !user[e])}>
-                    Log in
-                </button>
-                <button onClick={handleBorrar}> Borrar formulario</button>
+
+                <div className={styles.containerButtons}>
+                    <button className={stylesButton.button} type="submit" disabled={Object.keys(user).some((e) => !user[e])}>
+                        Log In
+                    </button>
+                    <Button text="Borrar formulario" onClick={handleBorrar}></Button>
+                </div>
             </form>
         </div>
     );

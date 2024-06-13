@@ -46,6 +46,10 @@ h1 {
   font-size: 2em;
   margin: 0.67em 0;
 }
+h2 {
+  color: #faebd7;
+  text-align: center;
+}
 
 /* Grouping content
    ========================================================================== */
@@ -80,6 +84,9 @@ pre {
 
 a {
   background-color: transparent;
+  color: inherit; /* O el color que prefieras */
+  text-decoration: none; /* O el estilo de texto que prefieras */
+  cursor: pointer; /* O el cursor que prefieras */
 }
 
 /**

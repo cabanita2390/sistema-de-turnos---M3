@@ -1,5 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import Button from "../../components/button/Button";
+import styles from "./Register.module.css"
+import stylesButton from "../../components/button/Button.module.css"
+import { useNavigate } from "react-router-dom";
 
 const emailRegExp = /\S+@\S+\.\S+/;
 const POST_USER_URL = "http://localhost:3000/users/register";
@@ -13,11 +17,13 @@ function Register() {
         nDni: "",
         username: "",
         password: "",
+        confirmpassword: ""
     };
 
     //*ESTADOS
     const [user, setUser] = useState(initialState);
     const [errors, setErrors] = useState(initialState);
+    const navigate = useNavigate();
 
     //*VALIDACIONES
     const validateUser = ({ name, email, birthdate, nDni, username, password, confirmpassword }) => {
@@ -36,6 +42,7 @@ function Register() {
     };
 
     //*HANDLERS
+    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUser({
@@ -49,7 +56,7 @@ function Register() {
         }))
     };
 
-    const handleSubmit = (event) =>{
+    const handleSubmit = async (event) =>{
         event.preventDefault();
         //BBDD
         const userData = {
@@ -61,15 +68,17 @@ function Register() {
             password: user.password,
         }
         //Lo pusheamos
-
-        axios.post(POST_USER_URL, userData)
-        .then(({data})=> {
-            console.log({data});
-            console.log({userData})
-            setUser(initialState)
-        })
-        .catch(error => alert(error.message))
+    
+        try {
+            const response = await axios.post(POST_USER_URL, userData);
+            alert(response.data);
+            setUser(initialState);
+            navigate('/login');
+        } catch (error) {
+            alert(error.message);
+        }
     }
+    
 
     const handleBorrar = (event) => {
         event.preventDefault();
@@ -107,12 +116,16 @@ function Register() {
                         {errors[name] && <span style={{ color: "red" }}>{errors[name]}</span>}
                     </div>
                 ))}
-                <button 
-                type="submit" 
-                disabled={Object.keys(user).some(e => !user[e]) ||
-                Object.keys(errors).some(elem => errors[elem])}
-                >Registrar</button>
-                <button onClick={handleBorrar}> Borrar formulario</button>
+                <div className={styles.containerButtons}>
+                    <button
+                    className={stylesButton.button}
+                    type="submit" 
+                    disabled={Object.keys(user).some(e => !user[e]) ||
+                    Object.keys(errors).some(elem => errors[elem])}
+                    >Registrarse</button>
+                    
+                    <Button text="Borrar formulario" onClick={handleBorrar}></Button>
+                </div>
             </form>
         </div>
     );
