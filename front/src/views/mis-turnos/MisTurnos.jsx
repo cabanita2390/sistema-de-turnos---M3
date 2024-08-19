@@ -9,14 +9,14 @@ import { setUserAppointments } from "../../redux/userSlice";
 
 const GETAPPOINTMENTSURL = "http://localhost:3000/appointments";
 const GET_USER_BY_ID_URL = `http://localhost:3000/users/`;
-const PUT_CANCEL_APPOINTMENT = 'http://localhost:3000/appointments/cancel/'
+const PUT_CANCEL_APPOINTMENT = "http://localhost:3000/appointments/cancel/";
 
 export default function MisTurnos() {
     // eslint-disable-next-line no-unused-vars
-    
+
     //Traer el id del usurio
     const actualUserID = useSelector((state) => state.actualUser.userData.user.id);
-    
+
     const navigate = useNavigate();
     const loggeado = useSelector((state) => state.actualUser.userData);
     //Traer el turno del estado global
@@ -49,15 +49,14 @@ export default function MisTurnos() {
     };
 
     const handleAppointmentCancel = async (appId) => {
-            try {
-                await axios.put(PUT_CANCEL_APPOINTMENT + `${appId}`)
-                    const responseData = await axios.get(GET_USER_BY_ID_URL + `${actualUserID}`)
-                    dispatch(setUserAppointments(responseData.data.appointments))
-            } catch (error) {
-                console.log(error)
-            }
+        try {
+            await axios.put(PUT_CANCEL_APPOINTMENT + `${appId}`);
+            const responseData = await axios.get(GET_USER_BY_ID_URL + `${actualUserID}`);
+            dispatch(setUserAppointments(responseData.data.appointments));
+        } catch (error) {
+            console.log(error);
         }
-    
+    };
 
     return (
         <>
